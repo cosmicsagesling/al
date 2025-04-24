@@ -3,6 +3,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Info } from "lucide-react"
 import {
   Card,
   CardContent,
@@ -37,25 +38,24 @@ export default function LoginPage() {
     }))
   }
 
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const handleAdminLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
+        router.push("/admin/dashboard")
+    } catch (error) {
+      console.error("Login error:", error)
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-      if (res.ok) {
-        const { role } = await res.json()
-        router.push(role === "admin" ? "/admin/dashboard" : "/trainee/dashboard")
-      } else {
-        alert("Login failed")
-      }
+  const handleTraineeLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+        router.push("/trainee/dashboard")
     } catch (error) {
       console.error("Login error:", error)
       alert("Something went wrong. Please try again.")
@@ -65,7 +65,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
+    <div className="flex flex-col gap-4 min-h-screen items-center justify-center bg-muted/40 p-4">
+      <div className="flex items-center gap-3">
+        <Info/>
+        <p className="text-muted-foreground">
+          No essential Login ID and Password is required.
+        </p>
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold">
@@ -84,7 +90,7 @@ export default function LoginPage() {
 
             {/* Trainee Tab */}
             <TabsContent value="trainee">
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleTraineeLogin}>
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="trainee-email">Employee ID</Label>
@@ -124,13 +130,9 @@ export default function LoginPage() {
             </TabsContent>
 
             {/* Admin Tab (just UI for now, not connected to formData) */}
-            <TabsContent value="admin">
+            <TabsContent  value="admin">
               <form
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  setFormData({ username: "admin", password: "admin123" }) // Mock
-                  handleLogin(e)
-                }}
+                onSubmit={handleAdminLogin}
               >
                 <div className="space-y-4">
                   <div className="space-y-2">

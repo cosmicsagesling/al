@@ -8,7 +8,7 @@ const HeroSection: FC = () => {
         {/* Left Column (Hero Text) */}
         <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
           <div className="flex items-center mb-4">
-            <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 animate-pulse text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <p className="text-gray-700">MPAS Training platform</p>
@@ -40,16 +40,16 @@ const HeroSection: FC = () => {
         <div className="w-full lg:w-1/2 px-11 relative">
           <div className="relative">
             <Image 
-              src="/hero-person.png" 
+              src="/man.png" 
               alt="Instructor with materials" 
-              width={600} 
-              height={450}
+              width={290} 
+              height={150}
               className="relative z-10"
             />
             
             {/* Trophy decoration */}
             <div className="absolute -left-12 top-10 z-0">
-              <Image src="/trophy.png" alt="Trophy" width={60} height={60} />
+              <Image src="/trophy.png" alt="Trophy" width={200} height={60} />
             </div>
             
             {/* Qualified instructor card */}
@@ -80,7 +80,7 @@ const HeroSection: FC = () => {
             
             {/* Target icon */}
             <div className="absolute right-10 bottom-20 z-0">
-              <Image src="/target.png" alt="Target" width={50} height={50} />
+              <Image src="/office_man.png" alt="Target" width={350} height={250} />
             </div>
           </div>
         </div>
